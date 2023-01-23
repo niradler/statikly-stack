@@ -5,6 +5,10 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "turbo", "prettier"
-  ]
+    "turbo",
+    "prettier"
+  ],
+  "rules": {
+    "no-unused-vars": "warn"
+  }
 };

@@ -5,12 +5,20 @@
   ],
   "pipeline": {
     "build": {
+      "dependsOn": [
+        "^build"
+      ],
       "outputs": [
         "build/**",
         "dist/**"
       ]
     },
     "lint": {},
+    "test": {
+      "dependsOn": [
+        "build"
+      ]
+    },
     "dev": {
       "cache": false,
       "persistent": true

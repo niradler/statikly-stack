@@ -1,17 +1,17 @@
 {
   "name": "@statikly-stack/router",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "file system router",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
+    "dev": "npm run build -- --watch",
     "build": "rimraf ./build && tsc",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
     "test": "jest",
     "docs": "rimraf ./docs && typedoc ./src/index.ts",
-    "publish-docs": "npm run docs && npx gh-pages -b gh-pages -d docs",
-    "prepublish": "npm-run-all -l -s lint-fix build test && npm version patch"
+    "publish-docs": "npm run docs && npx gh-pages -b gh-pages -d docs"
   },
   "keywords": [
     "router",

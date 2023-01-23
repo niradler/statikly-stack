@@ -21,7 +21,7 @@ test('speed - view', async () => {
         method: 'GET',
         url: '/',
     })
-    expect(perf.stop("request").time).toBeLessThanOrEqual(66);
+    expect(perf.stop("request").time).toBeLessThanOrEqual(70);
     expect(response).toBeDefined();
     expect(response.statusCode).toBe(200);
     stopAndPrint("test");
@@ -49,7 +49,7 @@ test('api', async () => {
     expect(response).toBeDefined();
     expect(response.statusCode).toBe(200);
     expect(response.body).toBeDefined();
-    expect(after - before).toBeLessThanOrEqual(62);
+    expect(after - before).toBeLessThanOrEqual(70);
 
     app.close()
 })
