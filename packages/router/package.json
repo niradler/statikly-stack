@@ -1,0 +1,40 @@
+{
+  "name": "@statikly-stack/router",
+  "version": "0.0.1",
+  "description": "file system router",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "rimraf ./build && tsc",
+    "lint": "eslint . --ext .ts",
+    "lint-fix": "eslint . --ext .ts --fix",
+    "test": "jest",
+    "docs": "rimraf ./docs && typedoc ./src/index.ts",
+    "publish-docs": "npm run docs && npx gh-pages -b gh-pages -d docs",
+    "prepublish": "npm-run-all -l -s lint-fix build test && npm version patch"
+  },
+  "keywords": [
+    "router",
+    "file"
+  ],
+  "author": "Nir Adler",
+  "license": "MIT",
+  "dependencies": {
+    "glob": "^8.0.3"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/node": "^18.11.18",
+    "jest": "^29.3.1",
+    "ts-node": "^10.9.1",
+    "typedoc": "^0.23.24",
+    "tsconfig": "workspace:*",
+    "typescript": "^4.9.4"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
