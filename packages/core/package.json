@@ -10,9 +10,7 @@
     "serve:demo": "nodemon -e js,ejs --exec \"node src/statikly.js serve --root-dir tests/demo --optionsFile statikly.json --context context.json -v\"",
     "refresh-test": "rimraf tests/demo && node src/statikly.js init --path tests/demo",
     "test": "jest",
-    "lint": "eslint . --ext .js --fix",
-    "fastify": "fastify",
-    "npm-run-all": "npm-run-all"
+    "lint": "eslint . --ext .js --fix"
   },
   "keywords": [],
   "author": "Nir Adler",
@@ -48,5 +46,14 @@
   "devDependencies": {
     "execution-time": "^1.4.1",
     "rimraf": "^4.1.1"
-  }
+  },
+  "description": "No hassle full stack framework, for blog/static/content sites, amazing for prototype and build internal tools and seo optimize. Provide alternative for writing frontend \"the old way\", more and more hype is growing on server side ui, like next.js and remix, I wanted to simplified it event more.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niradler/statikly-stack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/niradler/statikly-stack/issues"
+  },
+  "homepage": "https://github.com/niradler/statikly-stack#readme"
 }

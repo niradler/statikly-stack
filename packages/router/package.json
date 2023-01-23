@@ -36,5 +36,13 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niradler/statikly-stack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/niradler/statikly-stack/issues"
+  },
+  "homepage": "https://github.com/niradler/statikly-stack#readme"
 }

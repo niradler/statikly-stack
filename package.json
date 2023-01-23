@@ -23,5 +23,25 @@
     "tsup": "^6.5.0",
     "turbo": "latest"
   },
-  "packageManager": "pnpm@7.15.0"
+  "packageManager": "pnpm@7.15.0",
+  "dependencies": {
+    "eslint-config-turbo": "^0.0.7",
+    "eslint-plugin-turbo": "^0.0.7",
+    "eslint-scope": "^5.1.1",
+    "eslint-utils": "^2.1.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-visitor-keys": "^2.1.0"
+  },
+  "keywords": [],
+  "author": "Nir Adler",
+  "license": "MIT",
+  "description": "No hassle full stack framework, for blog/static/content sites, amazing for prototype and build internal tools and seo optimize. Provide alternative for writing frontend \"the old way\", more and more hype is growing on server side ui, like next.js and remix, I wanted to simplified it event more.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niradler/statikly-stack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/niradler/statikly-stack/issues"
+  },
+  "homepage": "https://github.com/niradler/statikly-stack#readme"
 }
