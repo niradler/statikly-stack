@@ -126,7 +126,7 @@ module.exports = yargs(hideBin(process.argv))
                 const app = await server(options);
 
                 await app.ready();
-                app._logger('routes', app.routes.keys());
+                app.log.debug('routes', app.routes.keys());
                 await app.listen({ port: app._config.port, host: app._config.host });
             } catch (err) {
                 console.error(err);
