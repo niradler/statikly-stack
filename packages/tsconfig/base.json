@@ -6,6 +6,7 @@
     "lib": [
       "es6"
     ],
+    "target": "es2017",
     "moduleResolution": "node",
     "composite": false,
     "declaration": true,

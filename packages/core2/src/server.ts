@@ -4,13 +4,18 @@ import type { IOptions } from './utils/config';
 import config from './utils/config';
 import { toFilePath } from './utils/common';
 
+declare module 'fastify' {
+    export interface FastifyInstance {
+        _config: IOptions;
+    }
+}
+
 export const server = async (options: IOptions) => {
     const _config = config(options);
 
     const app = Fastify({ logger: true });
 
-    // @ts-expect-error adding config
-    app._config = _config;
+    app.decorate('_config', _config);
 
     app.register(AutoLoad, {
         dir: toFilePath('plugins', __dirname),

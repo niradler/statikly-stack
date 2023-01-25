@@ -127,6 +127,8 @@ importers:
       execution-time: ^1.4.1
       fastify: ^4.11.0
       rimraf: ^4.1.1
+      tsconfig: workspace:*
+      typescript: ^4.9.4
     dependencies:
       '@fastify/autoload': 5.7.1
       '@fastify/cors': 8.2.0
@@ -140,6 +142,8 @@ importers:
     devDependencies:
       execution-time: 1.4.1
       rimraf: 4.1.1
+      tsconfig: link:../tsconfig
+      typescript: 4.9.4
 
   packages/eslint-config:
     specifiers:

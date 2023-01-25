@@ -5,8 +5,10 @@
   "private": false,
   "scripts": {
     "test": "jest",
-    "dev": "npm run build -- --watch",
-    "build": "rimraf ./build && tsc"
+    "dev": "npm-run-all build --parallel watch:*",
+    "watch:start": "fastify start -w -P -l debug build/root.js",
+    "build": "tsc",
+    "watch:build": "npm run build -- --watch"
   },
   "keywords": [],
   "author": "Nir Adler",
@@ -27,7 +29,9 @@
   },
   "devDependencies": {
     "execution-time": "^1.4.1",
-    "rimraf": "^4.1.1"
+    "rimraf": "^4.1.1",
+    "typescript": "^4.9.4",
+    "tsconfig": "workspace:*"
   },
   "description": "No hassle full stack framework, for blog/static/content sites, amazing for prototype and build internal tools and seo optimize. Provide alternative for writing frontend \"the old way\", more and more hype is growing on server side ui, like next.js and remix, I wanted to simplified it event more.",
   "repository": {

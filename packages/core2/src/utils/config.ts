@@ -32,6 +32,7 @@ export const config = (options: IOptions): Options => {
     // @ts-expect-error config init
     options = options || {};
     const rootDir = toFilePath(STATIKLY_ROOT_DIR) || toFilePath(options.rootDir) || process.cwd();
+    console.log(rootDir, options.rootDir);
     return {
         ...options,
         rootDir,
