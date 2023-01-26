@@ -1,17 +1,16 @@
-import { FastifyPluginCallback, FastifyInstance } from 'fastify';
+import { StatiklyPlugin, StatiklyApp } from './utils/types';
 import AutoLoad from '@fastify/autoload';
 import { toFilePath } from './utils/common';
 import type { IOptions } from './utils/config';
 import config from './utils/config';
 
 declare module 'fastify' {
-    export interface FastifyInstance {
+    export interface StatiklyApp {
         _config: IOptions;
     }
 }
 
-const root: FastifyPluginCallback = async function (app: FastifyInstance, options): Promise<void> {
-    (options as IOptions).rootDir = './tests';
+const root: StatiklyPlugin = async function (app: StatiklyApp, options): Promise<void> {
     const _config = config(options as IOptions);
 
     app.log.debug({ config: _config });
@@ -23,6 +22,6 @@ const root: FastifyPluginCallback = async function (app: FastifyInstance, option
 };
 
 export const autoConfig = { name: 'root', dependencies: [] };
-export const options = { rootDir: './tests' };
+export const options = {};
 
 export default root;

@@ -13,11 +13,16 @@ declare module 'fastify' {
 export const server = async (options: IOptions) => {
     const _config = config(options);
 
-    const app = Fastify({ logger: true });
+    const app = Fastify({
+        logger: {
+            level: _config.logLevel,
+        },
+    });
 
+    app.log.debug({ config: _config });
     app.decorate('_config', _config);
 
-    app.register(AutoLoad, {
+    await app.register(AutoLoad, {
         dir: toFilePath('plugins', __dirname),
         options: _config,
     });

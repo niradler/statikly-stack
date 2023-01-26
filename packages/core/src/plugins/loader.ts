@@ -1,9 +1,9 @@
-import { FastifyPluginCallback, FastifyInstance } from 'fastify';
+import { StatiklyPlugin, StatiklyApp } from '../utils/types';
 import AutoLoad from '@fastify/autoload';
 import type { Options } from '../utils/config';
 import { toFilePath } from '../utils/common';
 
-const security: FastifyPluginCallback = async function (app: FastifyInstance, options): Promise<void> {
+const security: StatiklyPlugin = async function (app: StatiklyApp, options): Promise<void> {
     const { autoLoad, rootDir } = options as Options;
     if (Array.isArray(autoLoad)) {
         for (const folder of autoLoad) {

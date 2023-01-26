@@ -1,15 +1,14 @@
 {
   "name": "@statikly-stack/core",
   "version": "0.0.2",
-  "main": "src/index.js",
+  "main": "build/index.js",
   "private": false,
   "scripts": {
-    "build-image": "docker build -t niradler/statikly:latest .",
-    "commit": "git add . && git-cz",
-    "serve:demo": "nodemon -e js,ejs --exec \"node src/statikly.js serve --root-dir tests/demo --optionsFile statikly.json --context context.json -v\"",
-    "refresh-test": "rimraf tests/demo && node src/statikly.js init --path tests/demo",
     "test": "jest",
-    "lint": "eslint . --ext .js --fix"
+    "dev": "npm-run-all build --parallel watch:*",
+    "watch:start": "fastify start -w -P -l debug build/root.js",
+    "build": "tsc",
+    "watch:build": "npm run build -- --watch"
   },
   "keywords": [],
   "author": "Nir Adler",
@@ -19,32 +18,20 @@
   },
   "dependencies": {
     "@fastify/autoload": "^5.7.1",
-    "@fastify/basic-auth": "^5.0.0",
-    "@fastify/caching": "^8.2.0",
-    "@fastify/cookie": "^8.3.0",
     "@fastify/cors": "^8.2.0",
-    "@fastify/csrf-protection": "^6.1.0",
-    "@fastify/flash": "^5.1.0",
     "@fastify/formbody": "^7.4.0",
     "@fastify/helmet": "^10.1.0",
-    "@fastify/jwt": "^6.5.0",
-    "@fastify/oauth2": "^7.0.0",
     "@fastify/routes": "^5.1.0",
-    "@fastify/secure-session": "^5.3.0",
     "@fastify/sensible": "^5.2.0",
-    "@fastify/session": "^10.1.1",
     "@fastify/static": "^6.6.1",
-    "@fastify/view": "^7.4.0",
     "@statikly-stack/router": "workspace:*",
-    "ejs": "^3.1.8",
-    "fastify": "^4.11.0",
-    "fastify-plugin": "^4.5.0",
-    "pino": "^8.8.0",
-    "pino-pretty": "^9.1.1"
+    "fastify": "^4.11.0"
   },
   "devDependencies": {
     "execution-time": "^1.4.1",
-    "rimraf": "^4.1.1"
+    "rimraf": "^4.1.1",
+    "typescript": "^4.9.4",
+    "tsconfig": "workspace:*"
   },
   "description": "No hassle full stack framework, for blog/static/content sites, amazing for prototype and build internal tools and seo optimize. Provide alternative for writing frontend \"the old way\", more and more hype is growing on server side ui, like next.js and remix, I wanted to simplified it event more.",
   "repository": {
