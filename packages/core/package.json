@@ -25,6 +25,7 @@
     "@fastify/sensible": "^5.2.0",
     "@fastify/static": "^6.6.1",
     "@statikly-stack/router": "workspace:*",
+    "@statikly-stack/render": "workspace:*",
     "fastify": "^4.11.0"
   },
   "devDependencies": {

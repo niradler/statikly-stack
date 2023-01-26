@@ -1,0 +1,7 @@
+src
+tests
+tsconfig.json
+nodemon.json
+docs
+.*
+!.gitignore

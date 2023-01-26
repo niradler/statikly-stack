@@ -1,0 +1,33 @@
+{
+  "name": "@statikly-stack/render",
+  "version": "0.0.1",
+  "main": "build/index.js",
+  "private": false,
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "watch:build": "npm run build -- --watch"
+  },
+  "keywords": [],
+  "author": "Nir Adler",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "parse5": "^7.1.2"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "typescript": "^4.9.4"
+  },
+  "description": "render html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niradler/statikly-stack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/niradler/statikly-stack/issues"
+  },
+  "homepage": "https://github.com/niradler/statikly-stack#readme"
+}
