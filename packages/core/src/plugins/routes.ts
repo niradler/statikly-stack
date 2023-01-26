@@ -8,6 +8,14 @@ const routesPlugin: StatiklyPlugin = async function (app: StatiklyApp, options):
     const { routesDir, routeExt } = options as Options;
     const router = new Router({ path: routesDir });
     const routes = await router.scan();
+    app.addHook('onSend', (req, res, payload, done) => {
+        const err = null;
+        if (typeof payload === 'string' && payload.includes('<html>')) {
+            res.type('text/html');
+        }
+
+        done(err, payload);
+    });
     for (const url in routes) {
         app.log.debug(`found url: ${url}`);
         const route = routes[url];

@@ -53,6 +53,15 @@ const routesTest = async (app) => {
     body = response.json();
     expect(body.todo.id).toBe(3);
 
+    response = await app.inject({
+        method: 'get',
+        url: '/html'
+    })
+    expect(response).toBeDefined();
+    expect(response.statusCode).toBe(200);
+    expect(response.headers['content-type']).toBe('text/html');
+    expect(response.body).toBeDefined();
+
     app.close()
 }
 
