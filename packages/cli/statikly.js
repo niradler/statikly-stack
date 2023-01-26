@@ -36,67 +36,30 @@ module.exports = yargs(hideBin(process.argv))
         (yargs) => {
             return yargs
                 .option('port', {
+                    alias: 'p',
                     describe: 'port to bind on',
                     default: 3000,
                 })
-                .option('username', {
-                    describe: 'basic auth username',
-                    default: undefined,
-                })
-                .option('password', {
-                    describe: 'basic auth password',
-                    default: undefined,
-                })
                 .option('rootDir', {
+                    alias: 'r',
                     describe: 'root directory',
                     default: process.cwd(),
                 })
                 .option('publicDir', {
+                    alias: 'pd',
                     describe: 'public directory, for static assets',
                     default: './public',
-                })
-                .option('templateEngine', {
-                    describe: 'template engine',
-                    default: 'ejs',
-                })
-                .option('viewsDir', {
-                    describe: 'views directory',
-                    default: './views',
-                })
-                .option('layout', {
-                    describe: 'layout file',
-                    default: undefined,
-                })
-                .option('apiDir', {
-                    describe: 'api directory',
-                    default: './api',
                 })
                 .option('prod', {
                     describe: 'production mode',
                     type: 'boolean',
                     default: false,
                 })
-                .option('context', {
-                    alias: 'ctx',
-                    describe: 'pass context data as json file',
-                })
-                .option('sessionSecret', {
-                    alias: 'sc',
-                    describe: 'session secret',
-                })
-                .option('viewOptions', {
-                    describe: 'view options file (json), will be pass to template engine',
-                })
                 .option('corsOrigin', {
+                    alias: 'co',
                     describe: 'cors origin, support multiple origins',
                     type: 'array',
                     default: ['localhost'],
-                })
-                .option('modules', {
-                    describe: 'modules',
-                    alias: 'm',
-                    type: 'array',
-                    default: ['cache', 'session', 'views', 'api', 'public'],
                 })
                 .option('autoLoad', {
                     describe: 'pass folder names to load plugins',
@@ -105,11 +68,16 @@ module.exports = yargs(hideBin(process.argv))
                     default: [],
                 })
                 .option('optionsFile', {
+                    alias: 'opt',
                     description: 'provide options file (json) instead of passing them as arguments',
                 })
                 .option('host', {
                     describe: 'listener host',
                     default: 'localhost',
+                }).option('logLevel', {
+                    alias: 'level',
+                    describe: 'log level',
+                    default: 'info',
                 });
         },
         async (options) => {
@@ -124,9 +92,7 @@ module.exports = yargs(hideBin(process.argv))
                 }
 
                 const app = await server(options);
-
                 await app.ready();
-                app.log.debug('routes', app.routes.keys());
                 await app.listen({ port: app._config.port, host: app._config.host });
             } catch (err) {
                 console.error(err);

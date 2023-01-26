@@ -1,13 +1,15 @@
 {
   "name": "@statikly-stack/cli",
-  "version": "0.0.2",
-  "description": "",
+  "version": "0.0.3",
+  "description": "statikly cli package to run/create/generate statikly apps",
   "main": "statikly.js",
   "bin": {
     "statikly": "./statikly.js"
   },
   "private": false,
-  "scripts": {},
+  "scripts": {
+    "serve": "node ./statikly.js serve --level debug -r \"../core/tests\""
+  },
   "keywords": [],
   "author": "Nir Adler",
   "license": "MIT",

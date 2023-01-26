@@ -4,13 +4,11 @@ export interface IOptions {
     rootDir: string | undefined;
     publicDir: string | undefined;
     publicPrefix: string | undefined;
-    corsOrigin: string | undefined;
-    host: string | undefined;
+    corsOrigin: string[] | undefined;
     autoLoad: string[] | undefined;
     routesDir: string | undefined;
     routeExt: string | undefined;
-    port: number | undefined;
-    isProd: boolean | undefined;
+    prod: boolean | undefined;
     logLevel: string | undefined;
 }
 
@@ -18,17 +16,15 @@ export interface Options {
     rootDir: string;
     publicDir: string;
     publicPrefix: string;
-    corsOrigin: string;
-    host: string;
+    corsOrigin: string[];
     autoLoad: string[];
     routesDir: string;
     routeExt: string;
-    port: number;
-    isProd: boolean;
+    prod: boolean;
     logLevel: string;
 }
 
-const { STATIKLY_PUBLIC_FOLDER, STATIKLY_PUBLIC_PREFIX, STATIKLY_CORS_ORIGIN, STATIKLY_HOST, STATIKLY_AUTOLOAD, STATIKLY_ROOT_DIR, STATIKLY_PORT, NODE_ENV } = process.env;
+const { STATIKLY_PUBLIC_FOLDER, STATIKLY_PUBLIC_PREFIX, STATIKLY_CORS_ORIGIN, STATIKLY_AUTOLOAD, STATIKLY_ROOT_DIR, NODE_ENV } = process.env;
 
 export const config = (options: IOptions): Options => {
     // @ts-expect-error config init
@@ -40,13 +36,11 @@ export const config = (options: IOptions): Options => {
         rootDir,
         publicPrefix: STATIKLY_PUBLIC_PREFIX || options.publicPrefix || '/public',
         publicDir: toFilePath(STATIKLY_PUBLIC_FOLDER, rootDir) || toFilePath(options.publicDir, rootDir) || toFilePath('public', rootDir),
-        corsOrigin: STATIKLY_CORS_ORIGIN || options.corsOrigin || 'localhost',
-        host: STATIKLY_HOST || options.host || 'localhost',
-        autoLoad: STATIKLY_AUTOLOAD ? (STATIKLY_AUTOLOAD as string).split(',') : [],
+        corsOrigin: STATIKLY_CORS_ORIGIN ? (STATIKLY_CORS_ORIGIN as string).split(',') : options.corsOrigin || ['localhost'],
+        autoLoad: STATIKLY_AUTOLOAD ? (STATIKLY_AUTOLOAD as string).split(',') : options.autoLoad || [],
         routesDir: toFilePath(options.routesDir, rootDir) || toFilePath('routes', rootDir),
         routeExt: options.routeExt || 'js',
-        port: Number(STATIKLY_PORT) || 4000,
-        isProd: options.isProd || NODE_ENV === 'production',
+        prod: options.prod || NODE_ENV === 'production',
         logLevel: options.logLevel || 'info',
     };
 };
