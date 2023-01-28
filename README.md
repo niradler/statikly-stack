@@ -10,12 +10,9 @@ The framework also supports file-based routing similar to Next.js. This means th
 
 Overall, this framework provides a powerful and efficient development experience for building web apps, with a focus on server-side rendering, fast performance, and a wide range of plugins and customization options.
 
-No hassle full stack framework, for blog/static/content sites, amazing for prototype and build internal tools and seo optimize.
-Provide alternative for writing frontend "the old way", more and more hype is growing on server side ui, like next.js and remix, I wanted to simplified it event more.
-
 check out the [Getting started](demo)
 
-reference:
+Reference:
 
 -   [fastify](https://www.fastify.io/)
 -   [ecosystem](https://www.fastify.io/ecosystem/)
