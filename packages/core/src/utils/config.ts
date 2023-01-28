@@ -8,6 +8,7 @@ export interface IOptions {
     autoLoad: string[] | undefined;
     routesDir: string | undefined;
     routeExt: string | undefined;
+    routesGlob: string | undefined;
     prod: boolean | undefined;
     logLevel: string | undefined;
 }
@@ -20,6 +21,7 @@ export interface Options {
     autoLoad: string[];
     routesDir: string;
     routeExt: string;
+    routesGlob: string;
     prod: boolean;
     logLevel: string;
 }
@@ -40,6 +42,7 @@ export const config = (options: IOptions): Options => {
         autoLoad: STATIKLY_AUTOLOAD ? (STATIKLY_AUTOLOAD as string).split(',') : options.autoLoad || [],
         routesDir: toFilePath(options.routesDir, rootDir) || toFilePath('routes', rootDir),
         routeExt: options.routeExt || 'js',
+        routesGlob: options.routesGlob || '**/*(*.js|*.mjs|*.cjs)',
         prod: options.prod || NODE_ENV === 'production',
         logLevel: options.logLevel || 'info',
     };

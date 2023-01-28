@@ -1,3 +1,4 @@
+import URL from 'url';
 import fp from 'fastify-plugin';
 import { StatiklyPlugin, StatiklyApp, HTTPMethods } from '../utils/types';
 import Router from '@statikly-stack/router';
@@ -6,8 +7,8 @@ import type { Options } from '../utils/config';
 const methods = ['head', 'post', 'put', 'delete', 'options', 'patch', 'get'];
 
 const routesPlugin: StatiklyPlugin = fp(async function (app: StatiklyApp, options): Promise<void> {
-    const { routesDir, routeExt } = options as Options;
-    const router = new Router({ path: routesDir });
+    const { routesDir, routeExt, routesGlob } = options as Options;
+    const router = new Router({ path: routesDir, glob: routesGlob });
     const routes = await router.scan();
     app.addHook('onSend', (req, res, payload, done) => {
         const err = null;
@@ -20,7 +21,13 @@ const routesPlugin: StatiklyPlugin = fp(async function (app: StatiklyApp, option
     for (const url in routes) {
         app.log.debug(`found url: ${url}`);
         const route = routes[url];
-        const controller = require(route[routeExt].path);
+        if (!route[routeExt]) continue;
+        let controller;
+        if (routeExt === 'mjs') {
+            controller = await import(URL.pathToFileURL(route[routeExt].path).href);
+        } else {
+            controller = require(route[routeExt].path);
+        }
         if (controller['route']) {
             app.log.debug(`found route: ${route[routeExt].path}`);
             await app.route({

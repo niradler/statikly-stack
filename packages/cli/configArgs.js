@@ -34,6 +34,14 @@ module.exports = (yargs) => {
             describe: 'production mode',
             type: 'boolean',
             default: false,
+        }).option('routeExt', {
+            alias: 're',
+            describe: 'route extension',
+            default: 'js',
+        }).option('routesGlob', {
+            alias: 'rg',
+            describe: 'route glob pattern',
+            default: '**/*(*.js|*.mjs|*.cjs)',
         })
         .option('corsOrigin', {
             alias: 'co',
