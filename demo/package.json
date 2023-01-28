@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "nodemon -e js --exec \"npm run start\"",
-    "start": "statikly start -a plugins -v --level debug"
+    "start": "statikly start -a plugins --level debug"
   },
   "keywords": [],
   "author": "",
@@ -15,11 +15,11 @@
     "@fastify/cookie": "^8.3.0",
     "@fastify/flash": "^5.1.0",
     "@fastify/session": "^10.1.1",
-    "@statikly-stack/core": "workspace:latest",
-    "@statikly-stack/render": "workspace:latest"
+    "@statikly-stack/core": "latest",
+    "@statikly-stack/render": "latest"
   },
   "devDependencies": {
-    "@statikly-stack/cli": "workspace:latest",
+    "@statikly-stack/cli": "latest",
     "nodemon": "^2.0.20"
   }
 }
