@@ -1,7 +1,7 @@
 const { htmlFragment } = require('@statikly-stack/render')
 
 module.exports = ({ errors }) => {
-    return htmlFragment`
+  return htmlFragment`
     <ul>
     ${Array.isArray(errors) ? errors.map(err => htmlFragment`<li>${err}</li>`) : ''}
     </ul>

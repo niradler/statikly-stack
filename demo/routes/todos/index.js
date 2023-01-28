@@ -47,14 +47,29 @@ const get = async (req, res) => {
 }
 
 
-const post = async (req, res) => {
-  const title = req.body.title;
-  if (title.length < 2) {
-    req.flash('errors', ['title length should be longer then 2 characters']);
+const post = {
+  schema: {
+    body: {
+      type: 'object',
+      required: ['title'],
+      properties: {
+        title: { type: 'string', minLength: 1 },
+      }
+    }
+  },
+  handler: async function (req, res) {
+    const title = req.body.title;
+    if (title.length < 2) {
+      req.flash('errors', ['title length should be longer then 2 characters']);
+      return res.redirect('/todos');
+    }
+    await db.add(title);
+    res.redirect('/todos');
+  },
+  errorHandler: function (error, req, res) {
+    req.flash('errors', [error.message]);
     return res.redirect('/todos');
   }
-  await db.add(title);
-  res.redirect('/todos');
 }
 
 module.exports = { get, post }

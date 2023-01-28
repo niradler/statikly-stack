@@ -1,6 +1,6 @@
 # Statikly
 
-This framework, built on the Fastify framework, utilizes server-side rendering (SSR) to create efficient and fast web pages. SSR allows for building web pages on the server and then sending the fully rendered HTML to the client, rather than relying on client-side JavaScript libraries such as React to generate the HTML. This approach can result in improved performance and SEO, as the pages are fully rendered and search engine crawlers can easily access the content.
+Statikly built on the Fastify framework, utilizes server-side rendering (SSR) to create efficient and fast web pages. SSR allows for building web pages on the server and then sending the fully rendered HTML to the client, rather than relying on client-side JavaScript libraries such as React to generate the HTML. This approach can result in improved performance and SEO, as the pages are fully rendered and search engine crawlers can easily access the content.
 
 One of the key benefits of using Fastify is its extensive ecosystem of plugins. These plugins allow developers to easily add functionality and features to their web apps, such as authentication, validation, and more. Additionally, developers can also create their own plugins to customize and extend the functionality of the framework.
 
