@@ -1,16 +1,17 @@
+import fp from 'fastify-plugin';
 import { StatiklyPlugin, StatiklyApp, HTTPMethods } from '../utils/types';
 import Router from '@statikly-stack/router';
 import type { Options } from '../utils/config';
 
 const methods = ['head', 'post', 'put', 'delete', 'options', 'patch', 'get'];
 
-const routesPlugin: StatiklyPlugin = async function (app: StatiklyApp, options): Promise<void> {
+const routesPlugin: StatiklyPlugin = fp(async function (app: StatiklyApp, options): Promise<void> {
     const { routesDir, routeExt } = options as Options;
     const router = new Router({ path: routesDir });
     const routes = await router.scan();
     app.addHook('onSend', (req, res, payload, done) => {
         const err = null;
-        if (typeof payload === 'string' && payload.includes('<html>')) {
+        if (typeof payload === 'string' && payload.includes('<!DOCTYPE html>')) {
             res.type('text/html');
         }
 
@@ -49,7 +50,7 @@ const routesPlugin: StatiklyPlugin = async function (app: StatiklyApp, options):
             }
         }
     }
-};
+});
 
 export const autoConfig = { name: 'routes', dependencies: ['core', 'security', 'loader'] };
 

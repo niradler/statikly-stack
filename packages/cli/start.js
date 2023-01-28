@@ -10,7 +10,6 @@ const start = async (options) => {
     }
     const app = await server(options);
     await app.ready();
-
     await app.listen({ port, host }).catch(async e => {
         await app.close()
         throw e;

@@ -1,5 +1,5 @@
 const { htmlFragment } = require('@statikly-stack/render')
-const layout = require('../components/layout')
+const layout = require('components/layout')
 
 const get = async (req, res) => {
     res.type('text/html')

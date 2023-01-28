@@ -4,7 +4,6 @@
   "main": "build/index.js",
   "private": false,
   "scripts": {
-    "test": "jest",
     "build": "tsc",
     "watch:build": "npm run build -- --watch"
   },

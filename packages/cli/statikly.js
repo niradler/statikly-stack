@@ -1,13 +1,32 @@
 #!/usr/bin/env node
 
 require('dotenv').config();
+const { addPath } = require('app-module-path')
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 const degit = require('degit');
 const { common, server } = require('@statikly-stack/core');
 const configArgs = require('./configArgs');
 const start = require('./start');
+const overview = require('./overview');
 const { readJSON } = common;
+
+const optToConfig = async (options) => {
+    const { optionsFile, rootDir, verbose } = options;
+
+    addPath(rootDir);
+
+    if (optionsFile) {
+        const optionsFromFile = await readJSON(optionsFile, rootDir);
+        options = { ...options, ...optionsFromFile };
+    }
+
+    if (verbose) {
+        console.info('options:', options);
+    }
+
+    return options;
+}
 
 module.exports = yargs(hideBin(process.argv))
     .command(
@@ -21,7 +40,7 @@ module.exports = yargs(hideBin(process.argv))
         },
         (options) => {
             if (options.verbose) console.info(options);
-            const emitter = degit('niradler/statikly-demo', {
+            const emitter = degit('niradler/statikly-stack/demo', {
                 force: true,
                 verbose: options.verbose,
             });
@@ -36,18 +55,9 @@ module.exports = yargs(hideBin(process.argv))
         'start the server',
         (yargs) => configArgs(yargs),
         async (options) => {
-            const { optionsFile, rootDir, verbose, watch } = options;
             try {
-                if (optionsFile) {
-                    const optionsFromFile = await readJSON(optionsFile, rootDir);
-                    options = { ...options, ...optionsFromFile };
-                }
-
-                if (verbose) {
-                    console.info('options:', options);
-                }
-
-                await start(options);
+                const config = await optToConfig(options)
+                await start(config);
             } catch (err) {
                 console.error(err);
                 process.exit(1);
@@ -60,18 +70,25 @@ module.exports = yargs(hideBin(process.argv))
         (yargs) => configArgs(yargs),
         async (options) => {
             try {
-                if (options.optionsFile) {
-                    const optionsFromFile = await readJSON(options.optionsFile, options.rootDir);
-                    options = { ...options, ...optionsFromFile };
-                }
-
-                if (options.verbose) {
-                    console.info('options:', options);
-                }
-
-                const app = await server(options);
+                const config = await optToConfig(options)
+                const app = await server(config);
                 await app.ready();
                 console.log(await app.printRoutes());
+            } catch (err) {
+                console.error(err);
+                process.exit(1);
+            }
+        }
+    )
+    .command(
+        'overview',
+        'load overview ui',
+        (yargs) => configArgs(yargs),
+        async (options) => {
+            try {
+                const config = await optToConfig(options)
+
+                await overview(config);
             } catch (err) {
                 console.error(err);
                 process.exit(1);

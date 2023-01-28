@@ -6,6 +6,8 @@ const routesTest = async (app) => {
 
     let response, body;
 
+    console.log(await app.printRoutes())
+
     response = await app.inject({
         method: 'POST',
         url: '/',
@@ -15,6 +17,20 @@ const routesTest = async (app) => {
         body: JSON.stringify({
             title: "Mr. Statikly"
         })
+    })
+
+    expect(response).toBeDefined();
+    expect(response.statusCode).toBe(200);
+    expect(response.body).toBeDefined();
+    expect(response.body).toBe('Hi, Mr. Statikly');
+
+    response = await app.inject({
+        method: 'POST',
+        url: '/',
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded'
+        },
+        body: `title=Mr. Statikly`
     })
 
     expect(response).toBeDefined();
@@ -78,10 +94,12 @@ test('core root', async () => {
         }
     });
 
+    await app.register(require('fastify-overview'))
     await app.register(root, options);
 
     await app.ready();
-
+    const appStructure = app.overview()
+    expect(appStructure.children[0].name).toBe('root');
     await routesTest(app);
 
     app.close()

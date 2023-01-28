@@ -1,6 +1,7 @@
 import server from './server';
-import plugin from './root';
+import root from './root';
 import * as common from './utils/common';
 import config from './utils/config';
+import plugin from 'fastify-plugin';
 
-export { server, common, config, plugin };
+export { server, common, config, root, plugin };
