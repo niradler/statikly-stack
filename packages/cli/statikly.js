@@ -45,7 +45,7 @@ module.exports = yargs(hideBin(process.argv))
                 verbose: options.verbose,
             });
             emitter.clone(options.path).then(() => {
-                console.log('All set, start by running: npm run serve');
+                console.log('All set, start by running: npm run start');
                 process.exit(0);
             });
         }
