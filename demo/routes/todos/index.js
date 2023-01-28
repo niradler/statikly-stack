@@ -61,14 +61,15 @@ const post = {
     const title = req.body.title;
     if (title.length < 2) {
       req.flash('errors', ['title length should be longer then 2 characters']);
-      return res.redirect('/todos');
+      return res.redirect(req.url);
     }
     await db.add(title);
-    res.redirect('/todos');
+
+    res.redirect(req.url);
   },
   errorHandler: function (error, req, res) {
     req.flash('errors', [error.message]);
-    return res.redirect('/todos');
+    return res.redirect(req.url);
   }
 }
 
