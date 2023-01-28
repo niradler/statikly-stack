@@ -8,7 +8,7 @@
   },
   "private": false,
   "scripts": {
-    "serve": "node ./statikly.js serve --level debug -r \"../core/tests\""
+    "start": "node ./statikly.js start --level debug -r \"../core/tests\""
   },
   "keywords": [],
   "author": "Nir Adler",
@@ -17,12 +17,11 @@
     "access": "public"
   },
   "dependencies": {
+    "@statikly-stack/core": "workspace:*",
     "degit": "^2.8.4",
     "dotenv": "^16.0.3",
-    "fastify-cli": "^5.7.1",
     "npm-run-all": "^4.1.5",
-    "yargs": "^17.6.2",
-    "@statikly-stack/core": "workspace:*"
+    "yargs": "^17.6.2"
   },
   "repository": {
     "type": "git",

@@ -55,12 +55,13 @@ const routesTest = async (app) => {
 
     response = await app.inject({
         method: 'get',
-        url: '/html'
+        url: '/html?name=Statikly'
     })
     expect(response).toBeDefined();
     expect(response.statusCode).toBe(200);
     expect(response.headers['content-type']).toBe('text/html');
     expect(response.body).toBeDefined();
+    expect(response.body.includes('<h1>Hi Statikly</h1>')).toBe(true);
 
     app.close()
 }

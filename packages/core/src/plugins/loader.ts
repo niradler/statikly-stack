@@ -3,7 +3,7 @@ import AutoLoad from '@fastify/autoload';
 import type { Options } from '../utils/config';
 import { toFilePath } from '../utils/common';
 
-const security: StatiklyPlugin = async function (app: StatiklyApp, options): Promise<void> {
+const loader: StatiklyPlugin = async function (app: StatiklyApp, options): Promise<void> {
     const { autoLoad, rootDir } = options as Options;
     if (Array.isArray(autoLoad)) {
         for (const folder of autoLoad) {
@@ -17,4 +17,4 @@ const security: StatiklyPlugin = async function (app: StatiklyApp, options): Pro
 
 export const autoConfig = { name: 'loader', dependencies: ['core', 'security'] };
 
-export default security;
+export default loader;

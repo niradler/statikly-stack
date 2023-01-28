@@ -1,31 +1,15 @@
-import Fastify from 'fastify';
-import AutoLoad from '@fastify/autoload';
+import Fastify, { FastifyRegisterOptions } from 'fastify';
 import type { IOptions } from './utils/config';
-import config from './utils/config';
-import { toFilePath } from './utils/common';
-
-declare module 'fastify' {
-    export interface FastifyInstance {
-        _config: IOptions;
-    }
-}
+import rootPlugin from './root';
 
 export const server = async (options: IOptions) => {
-    const _config = config(options);
-
     const app = Fastify({
         logger: {
-            level: _config.logLevel,
+            level: options.logLevel ? options.logLevel : 'info',
         },
     });
 
-    app.log.debug({ config: _config });
-    app.decorate('_config', _config);
-
-    await app.register(AutoLoad, {
-        dir: toFilePath('plugins', __dirname),
-        options: _config,
-    });
+    await app.register(rootPlugin, options as FastifyRegisterOptions<IOptions>);
 
     return app;
 };

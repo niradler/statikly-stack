@@ -5,6 +5,8 @@ const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
 const degit = require('degit');
 const { common, server } = require('@statikly-stack/core');
+const configArgs = require('./configArgs');
+const start = require('./start');
 const { readJSON } = common;
 
 module.exports = yargs(hideBin(process.argv))
@@ -12,11 +14,10 @@ module.exports = yargs(hideBin(process.argv))
         'init',
         'initialize example project',
         (yargs) => {
-            return yargs
-                .option('path', {
-                    describe: 'folder path',
-                    default: process.cwd(),
-                })
+            return yargs.option('path', {
+                describe: 'folder path',
+                default: process.cwd(),
+            });
         },
         (options) => {
             if (options.verbose) console.info(options);
@@ -31,55 +32,32 @@ module.exports = yargs(hideBin(process.argv))
         }
     )
     .command(
-        'serve',
+        'start',
         'start the server',
-        (yargs) => {
-            return yargs
-                .option('port', {
-                    alias: 'p',
-                    describe: 'port to bind on',
-                    default: 3000,
-                })
-                .option('rootDir', {
-                    alias: 'r',
-                    describe: 'root directory',
-                    default: process.cwd(),
-                })
-                .option('publicDir', {
-                    alias: 'pd',
-                    describe: 'public directory, for static assets',
-                    default: './public',
-                })
-                .option('prod', {
-                    describe: 'production mode',
-                    type: 'boolean',
-                    default: false,
-                })
-                .option('corsOrigin', {
-                    alias: 'co',
-                    describe: 'cors origin, support multiple origins',
-                    type: 'array',
-                    default: ['localhost'],
-                })
-                .option('autoLoad', {
-                    describe: 'pass folder names to load plugins',
-                    alias: 'a',
-                    type: 'array',
-                    default: [],
-                })
-                .option('optionsFile', {
-                    alias: 'opt',
-                    description: 'provide options file (json) instead of passing them as arguments',
-                })
-                .option('host', {
-                    describe: 'listener host',
-                    default: 'localhost',
-                }).option('logLevel', {
-                    alias: 'level',
-                    describe: 'log level',
-                    default: 'info',
-                });
-        },
+        (yargs) => configArgs(yargs),
+        async (options) => {
+            const { optionsFile, rootDir, verbose, watch } = options;
+            try {
+                if (optionsFile) {
+                    const optionsFromFile = await readJSON(optionsFile, rootDir);
+                    options = { ...options, ...optionsFromFile };
+                }
+
+                if (verbose) {
+                    console.info('options:', options);
+                }
+
+                await start(options);
+            } catch (err) {
+                console.error(err);
+                process.exit(1);
+            }
+        }
+    )
+    .command(
+        'routes',
+        'print server routes',
+        (yargs) => configArgs(yargs),
         async (options) => {
             try {
                 if (options.optionsFile) {
@@ -88,12 +66,12 @@ module.exports = yargs(hideBin(process.argv))
                 }
 
                 if (options.verbose) {
-                    console.info('argv', options);
+                    console.info('options:', options);
                 }
 
                 const app = await server(options);
                 await app.ready();
-                await app.listen({ port: app._config.port, host: app._config.host });
+                console.log(await app.printRoutes());
             } catch (err) {
                 console.error(err);
                 process.exit(1);

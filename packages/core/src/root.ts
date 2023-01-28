@@ -15,6 +15,7 @@ const root: StatiklyPlugin = async function (app: StatiklyApp, options): Promise
 
     app.log.debug({ config: _config });
     app.decorate('_config', _config);
+
     await app.register(AutoLoad, {
         dir: toFilePath('plugins', __dirname),
         options: _config,
