@@ -4,9 +4,9 @@
   "compilerOptions": {
     "module": "commonjs",
     "lib": [
-      "es6"
+      "ES2021"
     ],
-    "target": "es2017",
+    "target": "ES2021",
     "moduleResolution": "node",
     "composite": false,
     "declaration": true,

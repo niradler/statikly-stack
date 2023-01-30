@@ -5,6 +5,7 @@
   "private": false,
   "scripts": {
     "test": "npm run build && jest",
+    "jest": "jest",
     "dev": "npm-run-all build --parallel watch:*",
     "watch:start": "fastify start -w -P -l debug build/root.js",
     "build": "tsc",
