@@ -118,3 +118,24 @@ test('core server', async () => {
 
     app.close()
 })
+
+// test('ESM', async () => {
+//     const options = {
+//         rootDir: './tests',
+//         logLevel: logLevel,
+//         routeExt: "mjs"
+//     }
+//     const app = await server(options)
+
+//     await app.ready();
+
+//     let response = await app.inject({
+//         method: 'get',
+//         url: 'esm'
+//     })
+//     expect(response).toBeDefined();
+//     expect(response.statusCode).toBe(200);
+//     expect(response.body).toBeDefined();
+
+//     app.close()
+// })
