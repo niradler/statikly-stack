@@ -8,8 +8,10 @@ const methods = ['head', 'post', 'put', 'delete', 'options', 'patch', 'get'];
 
 const routesPlugin: StatiklyPlugin = fp(async function (app: StatiklyApp, options): Promise<void> {
     const { routesDir, routeExt, routesGlob } = options as Options;
+
     const router = new Router({ path: routesDir, glob: routesGlob });
     const routes = await router.scan();
+
     app.addHook('onSend', (req, res, payload, done) => {
         const err = null;
         if (typeof payload === 'string' && payload.includes('<!DOCTYPE html>')) {

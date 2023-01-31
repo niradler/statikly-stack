@@ -1,8 +1,8 @@
-const { html } = require('@statikly-stack/render')
+const title = fromRoot.require('components/title')
 
 const get = async (req, res) => {
 
-    return html`<h1>Hi ${req.query.name}</h1>`
+    return title(`Hi ${req.query.name}`)
 }
 
 module.exports = { get }

@@ -1,4 +1,5 @@
 import { toFilePath } from './common';
+import { RelativeRequire } from './relativeRequire';
 
 export interface IOptions {
     rootDir: string | undefined;
@@ -31,9 +32,10 @@ const { STATIKLY_PUBLIC_FOLDER, STATIKLY_PUBLIC_PREFIX, STATIKLY_CORS_ORIGIN, ST
 export const config = (options: IOptions): Options => {
     // @ts-expect-error config init
     options = options || {};
+
     const rootDir = toFilePath(STATIKLY_ROOT_DIR) || toFilePath(options.rootDir) || process.cwd();
 
-    return {
+    const _config = {
         ...options,
         rootDir,
         publicPrefix: STATIKLY_PUBLIC_PREFIX || options.publicPrefix || '/public',
@@ -46,6 +48,11 @@ export const config = (options: IOptions): Options => {
         prod: options.prod || NODE_ENV === 'production',
         logLevel: options.logLevel || 'info',
     };
+    global.statikly_config = _config;
+    const fromRoot = new RelativeRequire(rootDir);
+    global.fromRoot = fromRoot;
+
+    return _config;
 };
 
 export default config;
