@@ -3,9 +3,10 @@ name: Docker Image CI
 on:
   workflow_dispatch:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
-      - "package.json"    
+      - "packages/core/package.json"
+      - "packages/cli/package.json"      
 
 jobs:
 
