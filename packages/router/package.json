@@ -7,7 +7,6 @@
   "scripts": {
     "dev": "npm run build -- --watch",
     "build": "rimraf ./build && tsc",
-    "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
     "test": "jest",
     "docs": "rimraf ./docs && typedoc ./src/index.ts",

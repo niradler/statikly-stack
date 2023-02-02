@@ -6,7 +6,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "turbo": "turbo",
-    "docker-push": "docker buildx build --platform linux/arm64,linux/amd64 -t niradler/statikly . --push",
+    "docker-push": "docker buildx build --platform linux/arm64,linux/amd64 --no-cache -t niradler/statikly . --push",
     "nodemon": "nodemon",
     "changeset": "changeset",
     "publish-packages": "turbo run build lint test && changeset version && changeset publish"
