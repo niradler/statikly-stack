@@ -24,8 +24,16 @@ export function parseLiteralsSync(serializeFn: typeof serialize) {
 const parserSync = parseLiteralsSync(serialize);
 export const html = (s: TemplateStringsArray, ...e: unknown[]): string => parserSync((c: string) => parse(`<!doctype html>${c}`), s, ...e);
 export const htmlFragment = (s: TemplateStringsArray, ...e: unknown[]): string => parserSync(parseFragment, s, ...e);
+export const raw = htmlFragment;
+export const renderIf = (evaluate: boolean, content: string, elseContent: string = ''): string => {
+    if (evaluate) return content;
+
+    return elseContent;
+};
 
 export default {
     html,
     htmlFragment,
+    raw,
+    renderIf,
 };
