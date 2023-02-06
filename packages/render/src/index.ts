@@ -25,10 +25,21 @@ const parserSync = parseLiteralsSync(serialize);
 export const html = (s: TemplateStringsArray, ...e: unknown[]): string => parserSync((c: string) => parse(`<!doctype html>${c}`), s, ...e);
 export const htmlFragment = (s: TemplateStringsArray, ...e: unknown[]): string => parserSync(parseFragment, s, ...e);
 export const raw = htmlFragment;
-export const renderIf = (evaluate: boolean, content: string, elseContent: string = ''): string => {
-    if (evaluate) return content;
+export const renderIf = (condition: boolean, content: string | Function, elseContent: string = ''): string => {
+    if (condition) {
+        if (typeof content === 'string') {
+            return content;
+        }
+
+        if (typeof content === 'function') {
+            return content(condition);
+        }
+    }
 
     return elseContent;
+};
+export const renderList = (list: string[], renderFn: (value: string, index: number, array: string[]) => unknown, emptyContent: string): string => {
+    return renderIf(Array.isArray(list) && list.length > 0, () => list.map(renderFn), emptyContent);
 };
 
 export default {
