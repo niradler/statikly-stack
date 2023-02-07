@@ -119,6 +119,49 @@ test('core server', async () => {
     app.close()
 })
 
+test('security headers on', async () => {
+    const options = {
+        rootDir: './tests',
+        logLevel: logLevel,
+        globalHelmet: true
+    }
+    const app = await server(options)
+
+    await app.ready();
+
+    let response = await app.inject({
+        method: 'get',
+        url: '/'
+    })
+    expect(response).toBeDefined();
+    console.log(response.headers)
+    expect(response.headers['content-security-policy']).toBeDefined();
+
+    app.close()
+})
+
+
+test('security headers off', async () => {
+    const options = {
+        rootDir: './tests',
+        logLevel: logLevel,
+        globalHelmet: false
+    }
+    const app = await server(options)
+
+    await app.ready();
+
+    let response = await app.inject({
+        method: 'get',
+        url: '/'
+    })
+    expect(response).toBeDefined();
+    console.log(response.headers)
+    expect(response.headers['Content-Security-Policy']).toBeUndefined();
+
+    app.close()
+})
+
 // test('ESM', async () => {
 //     const options = {
 //         rootDir: './tests',

@@ -12,6 +12,7 @@ export interface IOptions {
     routesGlob: string | undefined;
     prod: boolean | undefined;
     logLevel: string | undefined;
+    globalHelmet: boolean | undefined;
 }
 
 export interface Options {
@@ -46,9 +47,9 @@ export const config = (options: IOptions): Options => {
         routesDir: toFilePath(options.routesDir, rootDir) || toFilePath('routes', rootDir),
         routeExt: options.routeExt || 'js',
         routesGlob: options.routesGlob || '**/*(*.js|*.mjs|*.cjs)',
-        prod: options.prod || NODE_ENV === 'production',
+        prod: options.prod ?? NODE_ENV === 'production',
         logLevel: options.logLevel || 'info',
-        globalHelmet: STATIKLY_GLOBAL_HELMET !== 'false',
+        globalHelmet: options.globalHelmet ?? STATIKLY_GLOBAL_HELMET !== 'false',
     };
     const fromRoot = new RelativeRequire(rootDir);
     global.fromRoot = fromRoot;
