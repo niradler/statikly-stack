@@ -15,6 +15,7 @@ const root: StatiklyPlugin = async function (app: StatiklyApp, options): Promise
 
     app.log.debug({ config: _config });
     app.decorate('_config', _config);
+    global.statikly_app = app;
 
     await app.register(core as FastifyPluginAsync, _config as FastifyRegisterOptions<Options>);
     await app.register(security as FastifyPluginAsync, _config as FastifyRegisterOptions<Options>);

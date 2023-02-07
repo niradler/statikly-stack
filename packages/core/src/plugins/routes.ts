@@ -30,6 +30,7 @@ const routesPlugin: StatiklyPlugin = fp(async function (app: StatiklyApp, option
         } else {
             controller = require(route[routeExt].path);
         }
+
         if (controller['route']) {
             app.log.debug(`found route: ${route[routeExt].path}`);
             await app.route({
@@ -37,6 +38,10 @@ const routesPlugin: StatiklyPlugin = fp(async function (app: StatiklyApp, option
                 url,
                 ...controller.route,
             });
+        }
+
+        if (typeof controller === 'function') {
+            await controller(app, url);
         }
 
         for (const method of methods) {

@@ -10,9 +10,23 @@ The framework also supports file-based routing similar to Next.js. This means th
 
 Overall, this framework provides a powerful and efficient development experience for building web apps, with a focus on server-side rendering, fast performance, and a wide range of plugins and customization options.
 
-check out the [Getting started](demo)
+## Usage
 
-Reference:
+Check out the [Getting started](demo) guide.
+
+### Supported environment variables
+
+```env
+STATIKLY_PUBLIC_FOLDER=
+STATIKLY_PUBLIC_PREFIX=
+STATIKLY_CORS_ORIGIN=
+STATIKLY_AUTOLOAD=
+STATIKLY_ROOT_DIR=
+STATIKLY_GLOBAL_HELMET=
+NODE_ENV=
+```
+
+### Reference
 
 -   [fastify](https://www.fastify.io/)
 -   [ecosystem](https://www.fastify.io/ecosystem/)

@@ -5,11 +5,12 @@ import cors from '@fastify/cors';
 import type { Options } from '../utils/config';
 
 const security: StatiklyPlugin = fp(async function (app: StatiklyApp, options): Promise<void> {
-    const { corsOrigin } = options as Options;
+    const { corsOrigin, globalHelmet } = options as Options;
     await app.register(cors, {
         origin: corsOrigin,
     });
-    await app.register(helmet);
+
+    await app.register(helmet, { global: globalHelmet });
 });
 
 export const autoConfig = { name: 'security', dependencies: [] };

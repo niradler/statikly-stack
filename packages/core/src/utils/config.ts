@@ -25,9 +25,10 @@ export interface Options {
     routesGlob: string;
     prod: boolean;
     logLevel: string;
+    globalHelmet: boolean;
 }
 
-const { STATIKLY_PUBLIC_FOLDER, STATIKLY_PUBLIC_PREFIX, STATIKLY_CORS_ORIGIN, STATIKLY_AUTOLOAD, STATIKLY_ROOT_DIR, NODE_ENV } = process.env;
+const { STATIKLY_PUBLIC_FOLDER, STATIKLY_PUBLIC_PREFIX, STATIKLY_CORS_ORIGIN, STATIKLY_AUTOLOAD, STATIKLY_ROOT_DIR, STATIKLY_GLOBAL_HELMET, NODE_ENV } = process.env;
 
 export const config = (options: IOptions): Options => {
     // @ts-expect-error config init
@@ -47,8 +48,8 @@ export const config = (options: IOptions): Options => {
         routesGlob: options.routesGlob || '**/*(*.js|*.mjs|*.cjs)',
         prod: options.prod || NODE_ENV === 'production',
         logLevel: options.logLevel || 'info',
+        globalHelmet: STATIKLY_GLOBAL_HELMET !== 'false',
     };
-    global.statikly_config = _config;
     const fromRoot = new RelativeRequire(rootDir);
     global.fromRoot = fromRoot;
 
