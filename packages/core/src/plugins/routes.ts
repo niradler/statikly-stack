@@ -20,6 +20,7 @@ const routesPlugin: StatiklyPlugin = fp(async function (app: StatiklyApp, option
 
         done(err, payload);
     });
+
     for (const url in routes) {
         app.log.debug(`found url: ${url}`);
         const route = routes[url];
@@ -40,8 +41,11 @@ const routesPlugin: StatiklyPlugin = fp(async function (app: StatiklyApp, option
             });
         }
 
-        if (typeof controller === 'function') {
-            await controller(app, url);
+        const isController = typeof controller === 'function' || typeof controller?.default === 'function';
+        if (isController) {
+            const defaultController = controller?.default || controller;
+            app.log.debug(`found controller: ${route[routeExt].path}`);
+            await defaultController(app, url, options);
         }
 
         for (const method of methods) {

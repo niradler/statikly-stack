@@ -1,5 +1,4 @@
 import { toFilePath } from './common';
-import { RelativeRequire } from './relativeRequire';
 
 export interface IOptions {
     rootDir: string | undefined;
@@ -51,8 +50,6 @@ export const config = (options: IOptions): Options => {
         logLevel: options.logLevel || 'info',
         globalHelmet: options.globalHelmet ?? STATIKLY_GLOBAL_HELMET !== 'false',
     };
-    const fromRoot = new RelativeRequire(rootDir);
-    global.fromRoot = fromRoot;
 
     return _config;
 };

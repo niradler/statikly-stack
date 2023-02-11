@@ -3,6 +3,7 @@ import type { IOptions, Options } from './utils/config';
 import config from './utils/config';
 import type { FastifyPluginAsync, FastifyRegisterOptions } from 'fastify';
 import { core, security, loader, routes } from './plugins';
+import { RelativeRequire } from './utils/relativeRequire';
 
 declare module 'fastify' {
     export interface StatiklyApp {
@@ -15,7 +16,10 @@ const root: StatiklyPlugin = async function (app: StatiklyApp, options): Promise
 
     app.log.debug({ config: _config });
     app.decorate('_config', _config);
-    global.statikly_app = app;
+    app.decorateRequest('_statiklyApp', () => app);
+
+    const fromRoot = new RelativeRequire(_config.rootDir);
+    global.fromRoot = fromRoot;
 
     await app.register(core as FastifyPluginAsync, _config as FastifyRegisterOptions<Options>);
     await app.register(security as FastifyPluginAsync, _config as FastifyRegisterOptions<Options>);
