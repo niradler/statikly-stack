@@ -1,6 +1,6 @@
 {
   "name": "@statikly-stack/cli",
-  "version": "0.0.9",
+  "version": "0.0.12",
   "description": "statikly cli package to run/create/generate statikly apps",
   "main": "statikly.js",
   "bin": {
